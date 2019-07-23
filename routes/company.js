@@ -1,43 +1,43 @@
 const router = require('express').Router();
-let Campaign = require('../models/campaign.model');
+let Company = require('../models/company.model');
 
 router.route('/').get((req, res) => {
-  Campaign.find()
-    .then(campaign => res.json(campaign))
+  Company.find()
+    .then(companies => res.json(companies))
     .catch(err => res.status(400).json('Error: ' + err));
 });
 
 router.route('/create').post((req, res) => {
   const name = req.body.name;
 
-  const newCampaign = new Campaign({
+  const newCompany = new Company({
     name,
   });
 
-  newCampaign.save()
-  .then(() => res.json('Campaign added!'))
+  newCompany.save()
+  .then(() => res.json('Company added!'))
   .catch(err => res.status(400).json('Error: ' + err));
 });
 
 router.route('/:id').get((req, res) => {
-  Campaign.findById(req.params.id)
-    .then(campaign => res.json(campaign))
+  Company.findById(req.params.id)
+    .then(company => res.json(company))
     .catch(err => res.status(400).json('Error: ' + err));
 });
 
 router.route('/:id').delete((req, res) => {
-  Campaign.findByIdAndDelete(req.params.id)
-    .then(() => res.json('Campaign deleted.'))
+  Company.findByIdAndDelete(req.params.id)
+    .then(() => res.json('Company deleted.'))
     .catch(err => res.status(400).json('Error: ' + err));
 });
 
 router.route('/update/:id').post((req, res) => {
-  Campaign.findById(req.params.id)
-    .then(campaign => {
-      campaign.name = req.body.name;
+  Company.findById(req.params.id)
+    .then(company => {
+      company.name = req.body.name;
 
-      campaign.save()
-        .then(() => res.json('Campaign updated!'))
+      company.save()
+        .then(() => res.json('Company updated!'))
         .catch(err => res.status(400).json('Error: ' + err));
     })
     .catch(err => res.status(400).json('Error: ' + err));
