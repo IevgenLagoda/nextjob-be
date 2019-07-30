@@ -35,7 +35,7 @@ router.route("/:id").get((req, res) => {
 });
 
 router.route("/company/:id").get((req, res) => {
-  Interview.findById(req.params.id)
+  Interview.$where(`companyId = ${req.params.id}`)
     .then(interview => res.json(interview))
     .catch(err => res.status(400).json("Error: " + err));
 });
